@@ -1,7 +1,7 @@
 from services.supabase_client import get_client
 
 
-def add_transaction(user_id, amount, category, date, description, type, notes):
+def add_transaction(user_id, amount, category, date, description, type, notes, CFO):
     supabase = get_client()
 
     data = {
@@ -11,7 +11,8 @@ def add_transaction(user_id, amount, category, date, description, type, notes):
         "type": type,
         "date": str(date),
         "description": description,
-        "notes": notes
+        "notes": notes,
+        "CFO": CFO
     }
 
     return supabase.table("transactions").insert(data).execute()

@@ -22,7 +22,7 @@ def show():
     st.subheader("➕ Add Budget")
 
     # Create 4 columns
-    col0, col1, col2, col3, col4 = st.columns(5)
+    col0, col1, col2, col3, col4, col5 = st.columns(6)
 
     with col0:
             Type = st.selectbox(
@@ -46,10 +46,13 @@ def show():
     with col1:
         category = st.selectbox(
             "Category",
-            ["Salary", "Loan","Credit card", "Cloths","Fuel", "House Rent", "Chitty", "Bills", "Health", "Grocery", "Insurance", "Sports", "Eating Out", "Entertainment"]
+            ["Salary", "Loan","Credit card", "Cloths","Fuel", "House Rent", "Chitty", "Bills", "Health", "Grocery", "Insurance", "Sports", "Eating Out", "Entertainment", "Others"]
         )
 
-    
+    with col5:
+            CFO = st.selectbox(
+                "CFO",
+                ["Jishnu","Paaru"]) 
 
     notes = st.text_input("Notes (optional)")
 
@@ -57,7 +60,7 @@ def show():
         if amount <= 0:
             st.error("Please enter a valid amount")
         else:
-            add_transaction(user_id, amount, category, transaction_date, description,type, notes)
+            add_transaction(user_id, amount, category, transaction_date, description,type, notes, CFO)
             st.success("Expense added successfully!")
 
     st.divider()
