@@ -4,6 +4,7 @@ import calendar
 import datetime
 from services.finance_service import get_transactions
 from services.mail_service import send_email
+from datetime import datetime
 
 
 # =========================
@@ -148,22 +149,47 @@ def show():
     # 📅 FILTER
     # =========================
     col1, col2 = st.columns(2)
+    today = datetime.today()
+
+    today = datetime.today()
+    current_year = today.year
+    
 
     with col1:
+        years = sorted(df["date"].dt.year.dropna().unique(), reverse=True)
+        if current_year in years:
+            default_index = years.index(current_year)
+        else:
+            default_index = 0  # latest available year
         selected_year = st.selectbox(
-            "Year",
-            sorted(df["date"].dt.year.dropna().unique(), reverse=True)
+            "Year",years,
+            index=default_index 
         )
 
     with col2:
-        months = list(calendar.month_name)[1:]
+
+        current_month = today.month
+
+        months = [
+            "January", "February", "March", "April",
+            "May", "June", "July", "August",
+            "September", "October", "November", "December"
+        ]
+
+        selected_month = st.selectbox(
+            "Month",
+            months,
+            index=current_month - 1
+        )
+        month_number = months.index(selected_month) + 1
+        '''months = list(calendar.month_name)[1:]
         selected_month_name = st.selectbox("Month", months)
         selected_month = months.index(selected_month_name) + 1
-
+'''
     df = df[
-        (df["date"].dt.year == selected_year) &
-        (df["date"].dt.month == selected_month)
-    ]
+            (df["date"].dt.year == selected_year) &
+            (df["date"].dt.month == month_number)
+        ]
 
     if df.empty:
         st.warning("No data")

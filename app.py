@@ -11,7 +11,7 @@ st.set_page_config(
 
 from modules import dashboard, expenses, budget, settings
 from services.auth_service import login, logout
-
+from modules import upload
 
 
 
@@ -45,6 +45,7 @@ menu = st.sidebar.radio("Go to", [
     "Dashboard",
     "Expenses",
     "Budget",
+    "Upload",
     "Settings"
 ])
 
@@ -63,6 +64,13 @@ elif menu == "Budget":
 
 elif menu == "Settings":
     settings.show()
+
+elif menu == "Upload":
+    upload.show()      
+
+
+
+  
 
 
 
