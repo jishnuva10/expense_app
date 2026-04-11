@@ -249,11 +249,11 @@ def show():
     # 📧 EMAIL
     # =========================
     if st.button("📧 Send Report"):
-        html = generate_full_report_html(df, selected_month_name, selected_year)
+        html = generate_full_report_html(df, selected_month, selected_year)
 
         send_email(
             user_id,
-            f"📊 Finance Report - {selected_month_name} {selected_year}",
+            f"📊 Finance Report - {selected_month} {selected_year}",
             html
         )
 
